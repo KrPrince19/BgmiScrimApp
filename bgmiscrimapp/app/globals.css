@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+body{
+    background-color: black;
+    color: aliceblue;
+}
+@layer utilities {
+  .scrollbar-hide {
+    /* Firefox */
+    scrollbar-width: none;
+    /* IE and Edge */
+    -ms-overflow-style: none;
+  }
+  /* Hide scrollbar in WebKit browsers (Chrome, Safari, Opera) */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
