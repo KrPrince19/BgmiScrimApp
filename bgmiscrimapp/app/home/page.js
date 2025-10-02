@@ -72,11 +72,6 @@ const Page = () => {
                   </div>
 
                   <div className="flex sm:flex-col gap-4 sm:gap-2 justify-center sm:justify-start sm:w-auto mt-4 sm:mt-0">
-                    {/* <a href={`/joinmatch/${tournament.tournamentId}`}>
-                      <button className=" sm:w-auto text-black hover:underline hover:text-cyan-400 font-semibold px-4 py-2 rounded-md transition-colors duration-200">
-                        JOIN
-                      </button>
-                    </a> */}
                     <a href={`/details/${tournament.tournamentId}`}>
                       <button className=" sm:w-auto text-black hover:underline hover:text-cyan-400 font-semibold px-4 py-2 rounded-md transition-colors duration-200">
                         DETAILS
