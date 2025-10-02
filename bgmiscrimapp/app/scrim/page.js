@@ -50,12 +50,9 @@ const page = () => {
                   <div className="flex flex-col items-center sm:items-start sm:w-auto">
                     {/* The Link component from a library like react-router-dom or Next.js would be used here. 
                         We use a simple anchor tag for demonstration. */}
-                    {/* <a href={`/details/${tournament.tournamentId}`} className="text-center sm:text-left"> */}
                       <div className="text-black text-xl sm:text-2xl font-bold mb-2 hover:underline hover:text-cyan-400">
                         {tournament.name.toUpperCase()}
                       </div>
-                    {/* </a> */}
-
                     <div className="  flex flex-col sm:flex-row gap-4 sm:gap-10 text-black mt-4 sm:mt-0  sm:w-auto text-center sm:text-left">
                       <div>
                         <h1 className="text-sm font-semibold">START DATE :</h1>
