@@ -1,6 +1,5 @@
 "use client"
 import React from 'react'
-// import { rankdata } from '../admin/data';
 import { useState,useEffect } from "react";
 
 
