@@ -12,14 +12,6 @@ import { Menu, X } from "lucide-react"
 import { FiMenu, FiX } from "react-icons/fi";
 import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
 
-import {
-  SignInButton,
-  SignUpButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from '@clerk/nextjs'
-
 const Leftsidebar = () => {
   const [mvpplayer, setmvpPlayer] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -27,22 +19,6 @@ const Leftsidebar = () => {
   const [menuOpen, setMenuOpen] = useState(false); // Navbar hamburger
   const [sidebarOpen, setSidebarOpen] = useState(false); // Sidebar hamburger
   const [selected, setSelected] = useState("one");
-
-  useEffect(() => {
-    const fetchPlayer = async () => {
-      try {
-        const res = await fetch(`http://localhost:5000/mvpplayer`);
-        if (!res.ok) throw new Error(`❌ Server responded with ${res.status}`);
-        const data = await res.json();
-        setmvpPlayer(data);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchPlayer();
-  }, []);
 
   useEffect(() => {
     const fetchAdmin = async () => {
@@ -160,7 +136,14 @@ const Leftsidebar = () => {
             <div key={idx}>
               {isVerified ? (
                 <button className="mx-7 font-bold my-4 py-2.5 rounded-lg bg-white text-black">
-                  <Link href="/admindashboard">Admin Dashboard</Link>
+             <div
+            onClick={() => setSelected("five")}
+            className={`-mt-4 font-bold transition-colors ${
+              selected === "five" ? "text-cyan-300 underline" : "text-black"
+            }`}
+          >
+                   <Link href="/admindashboard">Admin Dashboard</Link>
+                   </div>
                 </button>
               ) : (
                 <button className="mx-10 my-4 mr-[60px] py-2.5 rounded-lg bg-white font-bold text-black hover:underline">
