@@ -6,11 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "clean": "rimraf .next",
     "lint": "next lint"
   },
   "dependencies": {
     "axios": "^1.11.0",
     "bootstrap": "^5.3.7",
+    "lucide-react": "^0.544.0",
     "next": "15.4.6",
     "react": "19.1.0",
     "react-dom": "19.1.0",
@@ -25,6 +27,7 @@
     "@types/react": "19.1.10",
     "eslint": "^9",
     "eslint-config-next": "15.4.6",
+    "rimraf": "^6.0.1",
     "tailwindcss": "^4"
   }
 }
