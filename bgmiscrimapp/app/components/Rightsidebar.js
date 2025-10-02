@@ -1,24 +1,6 @@
 "use client"
-// import Link from 'next/link'
 import React, { useState, useEffect } from 'react'
-// import HomePage from "./home/page";
 
-// import { FaHome } from "react-icons/fa";
-// import { PiRanking } from "react-icons/pi";
-// import { GoTrophy } from "react-icons/go";
-// import { GiCrossedSwords } from "react-icons/gi";
-// import { FaInstagram, FaYoutube } from "react-icons/fa6";
-// import { Menu, X } from "lucide-react"
-// import { FiMenu, FiX } from "react-icons/fi";
-// import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
-
-// import {
-//   SignInButton,
-//   SignUpButton,
-//   SignedIn,
-//   SignedOut,
-//   UserButton,
-// } from '@clerk/nextjs'
 
 const Rightsidebar = () => {
   const [mvpplayer, setmvpPlayer] = useState([]);
@@ -41,19 +23,7 @@ const Rightsidebar = () => {
     fetchPlayer();
   }, []);
 
-  // useEffect(() => {
-  //   const fetchAdmin = async () => {
-  //     try {
-  //       const res = await fetch(`http://localhost:5000/admins`);
-  //       if (!res.ok) throw new Error(`❌ Server responded with ${res.status}`);
-  //       const data = await res.json();
-  //       setupAdmins(data);
-  //     } catch (err) {
-  //       console.error(err);
-  //     }
-  //   };
-  //   fetchAdmin();
-  // }, []);
+
 
   return (
     <>
