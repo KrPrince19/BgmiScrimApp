@@ -2,14 +2,13 @@
   "name": "bgmiscrimapp",
   "version": "0.1.0",
   "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "clean": "rimraf .next",
-    "lint": "next lint",
-    "vercel-build": "next build"
-  },
+ "scripts": {
+  "dev": "next dev",
+  "build": "next build",
+  "start": "next start",
+  "vercel-build": "next build"
+}
+
   "dependencies": {
     "axios": "^1.11.0",
     "bootstrap": "^5.3.7",
