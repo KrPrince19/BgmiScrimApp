@@ -23,7 +23,7 @@ const Leftsidebar = () => {
   useEffect(() => {
     const fetchAdmin = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/admins`);
+        const res = await fetch(`${process.env.URL}/admins`);
         if (!res.ok) throw new Error(`❌ Server responded with ${res.status}`);
         const data = await res.json();
         setupAdmins(data);
