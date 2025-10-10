@@ -29,7 +29,7 @@ export default function DynamicFormUploader() {
       const handleLogout = async (email) => {
         
     try {
-      await fetch('http://localhost:5000/logoutadmin', {
+      await fetch(`${process.env.URL}/logoutadmin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
