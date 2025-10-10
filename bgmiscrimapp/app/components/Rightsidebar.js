@@ -10,7 +10,7 @@ const Rightsidebar = () => {
   useEffect(() => {
     const fetchPlayer = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/mvpplayer`);
+        const res = await fetch(`${process.env.URL}/mvpplayer`);
         if (!res.ok) throw new Error(`❌ Server responded with ${res.status}`);
         const data = await res.json();
         setmvpPlayer(data);
