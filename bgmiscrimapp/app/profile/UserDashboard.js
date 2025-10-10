@@ -11,7 +11,7 @@ export default function UserDashboard({ userEmail, name }) {
   useEffect(() => {
     const fetchTournamentDetails = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/joinmatches`);
+        const res = await fetch(`${process.env.URL}/joinmatches`);
         if (!res.ok) throw new Error(`Server responded with ${res.status}`);
         const data = await res.json();
         setJoindata(data);
