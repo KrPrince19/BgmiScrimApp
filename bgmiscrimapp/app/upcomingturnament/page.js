@@ -15,7 +15,7 @@ const Page = () => {
          useEffect(() => {
                const fetchPlayer = async () => {
                  try {
-                   const res = await fetch(`http://localhost:5000/upcomingtournament`);
+                   const res = await fetch(`${process.env.URL}/upcomingtournament`);
                    if (!res.ok) throw new Error(`❌ Server responded with ${res.status}`);
                    const data = await res.json();
                   setupComingTournaments(data);
