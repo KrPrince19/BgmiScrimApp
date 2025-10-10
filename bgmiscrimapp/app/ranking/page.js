@@ -13,7 +13,7 @@ const page = () => {
    useEffect(() => {
          const fetchPlayer = async () => {
            try {
-             const res = await fetch(`http://localhost:5000/rank`);
+             const res = await fetch(`${process.env.URL}/rank`);
              if (!res.ok) throw new Error(`❌ Server responded with ${res.status}`);
              const data = await res.json();
             setPlayerrank(data);
