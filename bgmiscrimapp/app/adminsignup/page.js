@@ -23,7 +23,7 @@ export default function RegisterAdmin() {
     setError('');
 
     try {
-      const res = await fetch('http://localhost:5000/admins', {
+      const res = await fetch(`${process.env.URL}/admins', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
