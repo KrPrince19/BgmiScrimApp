@@ -3,7 +3,7 @@ import React from 'react'
 import { useState,useEffect } from "react";
 
 
-const page = () => {
+const Page = () => {
    const [playerrank, setPlayerrank] = useState([]);
    const [topPlayerrank, setTopPlayerrank] = useState([]);
        const [loading, setLoading] = useState(true);
