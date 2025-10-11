@@ -54,7 +54,7 @@ const Page = () => {
 
    <div className="toperdata  sm:flex left-0 gap-2 -ml-[37px] sm:-ml-0 w-[70vw] sm:w-[92%] h-[100%] sm:h-[74vh] rounded-2xl bg-gray-300">
         {topPlayerrank.map((topplayer,idx) => (
-    <div className='ml-1  mt-4'>
+    <div key={idx} className='ml-1  mt-4'>
       <img className="w-64 h-60 rounded-2xl" src={topplayer.imgSrc} alt="" />
       <div className='flex  sm:ml-2 flex-col justify-center text-center  mt-4'>
         <h1 className='text-yellow-400 text-2xl font-bold p-1'>#{topplayer.rank}</h1>
