@@ -11,7 +11,7 @@ export default function UserDashboard({ userEmail, name }) {
   useEffect(() => {
     const fetchTournamentDetails = async () => {
       try {
-        const res = await fetch(`${process.env.URL}/joinmatches`);
+        const res = await  fetch('https://bgmibackend.onrender.com/joinmatches`);
         if (!res.ok) throw new Error(`Server responded with ${res.status}`);
         const data = await res.json();
         setJoindata(data);
