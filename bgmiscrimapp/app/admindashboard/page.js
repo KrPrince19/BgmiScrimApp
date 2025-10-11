@@ -29,7 +29,7 @@ export default function DynamicFormUploader() {
       const handleLogout = async (email) => {
         
     try {
-      await fetch(`${process.env.URL}/logoutadmin', {
+      await fetch('https://bgmibackend.onrender.com/logoutadmin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
