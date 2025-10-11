@@ -36,7 +36,7 @@ const Rightsidebar = () => {
         <div className="right lg:fixed left-[81%] pt-22   w-60 bg-white h-full sm:mr-0">
           {mvpplayer.map((player, idx) => (
             <div key={idx} className="card mt-10">
-              <img src={player.imgSrc} className="card-img-top h-45 w-full  sm:ml-0 rounded-t-2xl" alt="..." />
+              <Image src={player.imgSrc} className="card-img-top h-45 w-full  sm:ml-0 rounded-t-2xl" alt="..." />
               <div className="card-body bg-cyan-50  sm:ml-0 w-full text-gray-500 border rounded-b-2xl">
                 <h1 className="text-2xl font-bold text-center bg-cyan-300 text-black">MVP</h1>
                 <div className="kill flex-col flex">
