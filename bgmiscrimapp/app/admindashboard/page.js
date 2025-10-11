@@ -59,7 +59,7 @@ export default function DynamicFormUploader() {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/tournament", {
+      const response = await fetch("https://bgmibackend.onrender.com/tournament", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ collection, data: [formData] }),
