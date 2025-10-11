@@ -73,7 +73,8 @@ const Page = () => {
       ) : (
     <div className=" rounded-t-lg w-[92%]  my-4 ">
         {playerrank.map((playerrankdata,idx) => (
-    <div className=" sm:flex justify-around bg-gray-900 gap-1 mt-2 p-6 text-center ml-auto  rounded-t-2xl border-r-1 border-l-1 border-yellow-200 ">
+    <div
+           key={idx} className=" sm:flex justify-around bg-gray-900 gap-1 mt-2 p-6 text-center ml-auto  rounded-t-2xl border-r-1 border-l-1 border-yellow-200 ">
       <div className="text-yellow-400 text-3xl font-bold text-center">
             <div >#{playerrankdata.rank}</div>
       </div>
