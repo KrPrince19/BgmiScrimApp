@@ -23,7 +23,7 @@ export default function RegisterAdmin() {
     setError('');
 
     try {
-      const res = await fetch(`${process.env.URL}/admins', {
+      const res = await  fetch('https://bgmibackend.onrender.com/admins', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
