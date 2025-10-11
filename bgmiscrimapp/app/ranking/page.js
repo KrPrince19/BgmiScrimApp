@@ -13,7 +13,7 @@ const page = () => {
    useEffect(() => {
          const fetchPlayer = async () => {
            try {
-             const res = await fetch(`${process.env.URL}/rank`);
+             const res = await  fetch('https://bgmibackend.onrender.com/rank`);
              if (!res.ok) throw new Error(`❌ Server responded with ${res.status}`);
              const data = await res.json();
             setPlayerrank(data);
