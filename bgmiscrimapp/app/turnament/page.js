@@ -13,7 +13,7 @@ const Page = () => {
   useEffect(() => {
      const fetchPlayer = async () => {
        try {
-         const res = await fetch(`${process.env.URL}/tournament`);
+         const res = await  fetch('https://bgmibackend.onrender.com/tournament`);
          if (!res.ok) throw new Error(`❌ Server responded with ${res.status}`);
          const data = await res.json();
          setTournaments(data);
