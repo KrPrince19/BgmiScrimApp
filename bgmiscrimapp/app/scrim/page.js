@@ -12,7 +12,7 @@ const page = () => {
      useEffect(() => {
            const fetchPlayer = async () => {
              try {
-               const res = await fetch('https://bgmibackend.onrender.com/upcomingscrim`);
+               const res = await fetch('https://bgmibackend.onrender.com/upcomingscrim');
                if (!res.ok) throw new Error(`❌ Server responded with ${res.status}`);
                const data = await res.json();
               setScrim(data);

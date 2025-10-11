@@ -10,7 +10,7 @@ const Rightsidebar = () => {
   useEffect(() => {
     const fetchPlayer = async () => {
       try {
-        const res = await  fetch('https://bgmibackend.onrender.com/mvpplayer`);
+        const res = await  fetch('https://bgmibackend.onrender.com/mvpplayer');
         if (!res.ok) throw new Error(`❌ Server responded with ${res.status}`);
         const data = await res.json();
         setmvpPlayer(data);
