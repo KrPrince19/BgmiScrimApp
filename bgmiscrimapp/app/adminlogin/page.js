@@ -17,7 +17,7 @@ export default function AdminLogin() {
     setError('');
 
     try {
-      const res = await fetch(`${process.env.URL}/adminlogin', {
+      const res = await  fetch('https://bgmibackend.onrender.com/adminlogin', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
