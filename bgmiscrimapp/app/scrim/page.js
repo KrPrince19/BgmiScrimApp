@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Link from "next/link";
 // import { useState } from "react";
 
-const Page = () => {
+const page = () => {
   const [upcomingScrim, setScrim] = useState([]);
       const [loading, setLoading] = useState(true);
      const [error, setError] = useState(null);
