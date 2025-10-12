@@ -31,7 +31,7 @@ const HomePage = () => {
 
   return (
     <>
-      <div className=' -ml-[71px] flex flex-col items-center h-full py-22  text-black '>
+      <div className=' -ml-[71px] flex flex-col items-center h-[100%] py-22  text-black '>
       {/* This div represents the content area that would be passed as 'children' */}
       <div className="  sm:mx-68">
         <h1 className='-mt-4 text-[16px] sm:text-2xl  md:text-3xl lg:text-4xl font-bold text-white-500 underline mb-8 text-center'>
