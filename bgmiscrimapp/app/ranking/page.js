@@ -51,7 +51,7 @@ const Page = () => {
   
   return (
     <>        
-     <div className='mt-16  -ml-4'>
+     <div className='mt-16 min-h-screen -ml-4'>
 
    <div className="toperdata  sm:flex left-0 gap-2 -ml-[37px] sm:-ml-0 w-[70vw] sm:w-[92%] h-[100%] sm:h-[74vh] rounded-2xl bg-gray-300">
         {topPlayerrank.map((topplayer,idx) => (
@@ -102,4 +102,4 @@ const Page = () => {
   )
 }
 
-export default page
+export default Page
