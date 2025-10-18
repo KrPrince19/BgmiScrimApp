@@ -47,19 +47,19 @@ export default function DetailPage() {
           {tournament.name.toUpperCase()}
         </h1>
         <ul className="space-y-4 md:space-y-6">
-          <li className="flex flex-col md:flex-row md:items-center gap-2">
+          <li className="flex md:items-center gap-2">
             <strong className="text-lg md:text-xl text-black w-32">Start Date:</strong>
             <span className="text-lg font-bold md:text-xl">{tournament.startdate}</span>
           </li>
-          <li className="flex flex-col md:flex-row md:items-center gap-2">
+          <li className="flex  md:items-center gap-2">
             <strong className="text-lg md:text-xl text-black w-32">End Date:</strong>
             <span className="text-lg  font-bold md:text-xl">{tournament.enddate}</span>
           </li>
-          <li className="flex flex-col md:flex-row md:items-center gap-2">
+          <li className="flex md:items-center gap-2">
             <strong className="text-lg md:text-xl text-black w-32">Map:</strong>
             <span className="text-lg  font-bold md:text-xl">{tournament.map}</span>
           </li>
-          <li className="flex flex-col md:flex-row md:items-center gap-2">
+          <li className="flex  md:items-center gap-2">
             <strong className="text-lg md:text-xl text-black w-32">Prize Pool:</strong>
             <span className="text-lg font-bold md:text-xl">{tournament.prizePool}</span>
           </li>
