@@ -51,12 +51,14 @@ const Page = () => {
   
   return (
     <>        
-     <div className='mt-16 min-h-screen -ml-4'>
+     <div className='mt-1 lg:mt-16 min-h-screen lg:0 lg:mr-12  '>
+     <div className='lg:mt-16 min-h-screen -ml-4'>
 
-   <div className="toperdata  sm:flex left-0 gap-2 -ml-[37px] sm:-ml-0 w-[70vw] sm:w-[92%] h-[100%] sm:h-[74vh] rounded-2xl bg-gray-300">
+    <h1 className="text-center font-bold mt-2 border-b-2 border-b-blue-300 lg:hidden">Top 3 Players</h1>
+   <div className="toperdata  sm:flex left-0 gap-2  sm:ml-3  h-[100%] sm:h-[74vh] rounded-2xl bg-gray-300">
         {topPlayerrank.map((topplayer,idx) => (
-    <div key={idx} className='ml-1  mt-4'>
-      <Image className="w-64 h-60 rounded-2xl" src={topplayer.imgSrc} alt="" />
+    <div key={idx} className=' lg:flex-col mt-2'>
+      <img className="w-[100vw] h-60 mx-4 lg:mx-0 rounded-2xl" src={topplayer.imgSrc} alt="image" />
       <div className='flex  sm:ml-2 flex-col justify-center text-center  mt-4'>
         <h1 className='text-yellow-400 text-2xl font-bold p-1'>#{topplayer.rank}</h1>
         <h2 className='text-black text-3xl font-bold p-1'>{topplayer.playerName.toUpperCase()}</h2>
@@ -71,7 +73,8 @@ const Page = () => {
 {loading ? (
         <p className="text-white">Loading tournaments...</p>
       ) : (
-    <div className=" rounded-t-lg w-[92%]  my-4 ">
+    <div className=" rounded-t-lg   my-4 ">
+    <h1 className="text-center font-bold mt-2 bg-cyan-100 border-2 border-blue-300 lg:hidden">Ranks</h1>
         {playerrank.map((playerrankdata,idx) => (
     <div
            key={idx} className=" sm:flex justify-around bg-gray-900 gap-1 mt-2 p-6 text-center ml-auto  rounded-t-2xl border-r-1 border-l-1 border-yellow-200 ">
@@ -85,10 +88,10 @@ const Page = () => {
         <div className="text-green-400 text-2xl font-semibold">{playerrankdata.teamName.toUpperCase()}</div>
       </div>
       <div>
-        <div className="text-green-400 text-2xl font-semibold">{playerrankdata.point}</div>
+        <div className="text-green-400 text-2xl font-semibold">{playerrankdata.kill}</div>
       </div>
       <div>
-        <div className="text-green-400 text-2xl font-semibold">{playerrankdata.kill}</div>
+        <div className="text-green-400 text-2xl font-semibold">{playerrankdata.point}</div>
       </div>
     </div>
     ))}
@@ -96,10 +99,10 @@ const Page = () => {
 
 )} 
 
-
+</div>
 </div>
     </>
   )
 }
 
-export default Page
+export default Page;
