@@ -2,16 +2,24 @@
 import Image from "next/image";
 import React, { useState, useEffect } from 'react'
 
-
 const Rightsidebar = () => {
   const [mvpplayer, setmvpPlayer] = useState([]);
   const [loading, setLoading] = useState(true);
- 
+  const [messageIndex, setMessageIndex] = useState(0);
+  const [displayed, setDisplayed] = useState('');
+
+  const messages = [
+    "Welcome to FragZone!",
+    "Stay tuned for upcoming tournaments!",
+    "Join and show your skills in the battleground!",
+    "Top MVPs will be featured here every week!",
+    "Drop message on Telegram for any issue"
+  ];
 
   useEffect(() => {
     const fetchPlayer = async () => {
       try {
-        const res = await  fetch('https://bgmibackend.onrender.com/mvpplayer');
+        const res = await fetch('https://bgmibackend.onrender.com/mvpplayer');
         if (!res.ok) throw new Error(`❌ Server responded with ${res.status}`);
         const data = await res.json();
         setmvpPlayer(data);
@@ -24,33 +32,70 @@ const Rightsidebar = () => {
     fetchPlayer();
   }, []);
 
+  useEffect(() => {
+    let timeout;
+    const current = messages[messageIndex % messages.length];
 
+    if (displayed.length < current.length) {
+      timeout = setTimeout(() => {
+        setDisplayed(prev => prev + current.charAt(prev.length));
+      }, 80);
+    } else {
+      timeout = setTimeout(() => {
+        setDisplayed('');
+        setMessageIndex(prev => (prev + 1) % messages.length);
+      }, 1500);
+    }
+
+    return () => clearTimeout(timeout);
+  }, [displayed, messageIndex]);
 
   return (
     <>
-    
-{/* <div className='mvpPlayer'>
-      {/* ================= MVP PLAYER SECTION ================= */}
-      {loading ? (
-        <p className="text-white">Loading tournaments...</p>
-      ) : (
-        <div className="right lg:fixed left-[81%] pt-22   w-60 bg-white h-full sm:mr-0">
-          {mvpplayer.map((player, idx) => (
-            <div key={idx} className="card mt-10">
-              <Image src={player.imgSrc} className="card-img-top h-45 w-full  sm:ml-0 rounded-t-2xl" alt="..." />
-              <div className="card-body bg-cyan-50  sm:ml-0 w-full text-gray-500 border rounded-b-2xl">
-                <h1 className="text-2xl font-bold text-center bg-cyan-300 text-black">MVP</h1>
-                <div className="kill flex-col flex">
-                  <span className="clan font-bold text-2xl mx-4">{player.teamname.toUpperCase()}</span>
-                  <span className="player font-bold text-2xl mx-4">{player.name.toUpperCase()}</span>
-                  <span className="kill font-bold text-2xl mx-4">Kill:- {player.kill}</span>
-                </div>
+      <div className='mvpPlayer'> 
+        {/* ================= MVP PLAYER SECTION ================= */}
+        {loading ? (
+          <p className="text-white">Loading tournaments...</p>
+        ) : (
+          <div className="right lg:fixed left-[79%] pt-8 lg:pt-7 w-[100%] lg:w-68 bg-white h-full sm:mr-0">
+             <div className="hidden lg:block mt-4">
+              <div className="Typing_msg w-full h-[150px]  flex items-center justify-center text-xl font-medium text-gray-700 p-4">
+                {displayed}
+                <span className="ml-1 h-6 w-[2px] bg-black animate-blink" />
               </div>
             </div>
-          ))}
-        </div>
-      )}
-      {/* </div> */} 
+            {mvpplayer.map((player, idx) => (
+              
+              <div key={idx} className="card mt-8 lg:mt-17 flex lg:flex-col">
+                <img src={player.imgSrc} className="card-img-top h-45 lg:h-55 w-[50%] lg:w-full sm:ml-0 lg:rounded-t-2xl" alt="image" />
+                <div className="card-body bg-cyan-50 sm:ml-0 w-full text-gray-500 border lg:rounded-b-2xl">
+                  <h1 className="text-2xl font-bold text-center bg-cyan-300 text-black">MVP</h1>
+                  <div className="kill flex-col flex lg:h-30">
+                    <span className="clan font-bold text-[1.2rem] lg:p-1 lg:text-2xl mx-1">Team:-{player.teamname.toUpperCase()}</span>
+                    <span className="player font-bold lg:text-2xl lg:p-1 mx-1">Name:-{player.name.toUpperCase()}</span>
+                    <span className="kill font-bold ;g:text-2xl lg:p-1 mx-1">Kill:- {player.kill}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+             <div className="lg:hidden block">
+              <div className="Typing_msg w-full h-[100px]  flex items-center justify-center text-xl font-bold text-gray-700 p-4">
+                {displayed}
+                <span className="ml-1 h-6 w-[2px] bg-black animate-blink" />
+              </div>
+            </div>
+          </div>
+        )}
+      </div> 
+      <style jsx global>{`
+        @keyframes blink {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0; }
+        }
+        .animate-blink {
+          animation: blink 1s step-end infinite;
+        }
+      `}</style>
     </>
   )
 }
