@@ -66,11 +66,12 @@ export default function RootLayout({ children }) {
             <div className="">
               <div className="">
             <Navbar/>
+              <div className="lg:hidden mt-0"><Rightsidebar/></div>
               </div>
             <div className="left-middle-right flex justify-around w-full text-black bg-white shadow-lg...">
-              <div className="mt-10 mx-14  bg-yellow-200"><Leftsidebar/></div>
-              <div className=" w-[60%]  h-full">{children}</div>
-              <div><Rightsidebar/></div>
+              <div className="mt-10  bg-yellow-200"><Leftsidebar/></div>
+              <div className=" lg:w-[60%] w-[100%]  h-full">{children}</div>
+              <div className="hidden  lg:block "><Rightsidebar/></div>
             </div>
             </div>          
           </ClerkLoaded>
@@ -79,3 +80,4 @@ export default function RootLayout({ children }) {
     </ClerkProvider>
   );
 }
+
