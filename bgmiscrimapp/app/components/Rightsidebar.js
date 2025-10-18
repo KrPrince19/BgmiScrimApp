@@ -66,7 +66,7 @@ const Rightsidebar = () => {
             </div>
             {mvpplayer.map((player, idx) => (
               
-              <div key={idx} className="card mt-8 lg:mt-17 flex lg:flex-col">
+              <div key={idx} className="card mt-8 lg:mt-10 flex lg:flex-col">
                 <img src={player.imgSrc} className="card-img-top h-45 lg:h-55 w-[50%] lg:w-full sm:ml-0 lg:rounded-t-2xl" alt="image" />
                 <div className="card-body bg-cyan-50 sm:ml-0 w-full text-gray-500 border lg:rounded-b-2xl">
                   <h1 className="text-2xl font-bold text-center bg-cyan-300 text-black">MVP</h1>
