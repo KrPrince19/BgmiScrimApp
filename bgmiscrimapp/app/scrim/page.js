@@ -58,11 +58,7 @@ const Page = () => {
                           {tournament.name.toUpperCase()}
                         </div>
                       </a>
-                          {/* margin-left: -31px;
-    display: flex
-;
-    flex-direction: column;
-    align-items: center; */}
+          
 
                       <div className="w-[100%] ml-[-31px] lg:ml-[0] flex flex-col lg:flex-row items-center lg:justify-between gap-4  text-black mt-4 sm:mt-0  text-center sm:text-left">
                         <div className="date flex gap-6">
@@ -81,15 +77,7 @@ const Page = () => {
                             </span>
                           </div>
                         </div>
-                        {/* <div className="detail-btn -mt-4">
-                          <div className="">
-                            <a href={`/details/${tournament.tournamentId}`}>
-                              <button className=" sm:w-auto text-black hover:underline hover:text-cyan-400 font-semibold px-4 py-2 rounded-md transition-colors duration-200">
-                                DETAILS
-                              </button>
-                            </a>
-                          </div>
-                        </div> */}
+                       
                       </div>
                     </div>
                   </div>
