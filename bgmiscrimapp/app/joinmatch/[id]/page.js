@@ -5,19 +5,21 @@ import { useParams } from "next/navigation";
 
 const Page = () => {
   const params = useParams();
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
+
   const [form, setForm] = useState({
     tournamentName: "",
     firstPlayer: "",
     secondPlayer: "",
     thirdPlayer: "",
-    forthPlayer: "",
+    fourthPlayer: "",
     playerEmail: "",
     playerPassword: "",
     playerConfirmPassword: "",
     playerMobileNumber: "",
   });
-
-  const [error, setError] = useState("");
 
   useEffect(() => {
     if (params.id) {
@@ -28,25 +30,24 @@ const Page = () => {
     }
   }, [params]);
 
-  // form reset
   const handleReset = () => {
     setForm({
       tournamentName: params.id ? params.id.toUpperCase() : "",
       firstPlayer: "",
       secondPlayer: "",
       thirdPlayer: "",
-      forthPlayer: "",
+      fourthPlayer: "",
       playerEmail: "",
       playerPassword: "",
       playerConfirmPassword: "",
       playerMobileNumber: "",
     });
     setError("");
+    setSuccess("");
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     if (name === "playerMobileNumber") {
       const digitsOnly = value.replace(/\D/g, "");
       setForm((prev) => ({ ...prev, [name]: digitsOnly }));
@@ -58,14 +59,22 @@ const Page = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setSuccess("");
 
     if (form.playerPassword !== form.playerConfirmPassword) {
-      setError("Passwords do not match");
+      setError("❌ Passwords do not match");
       return;
     }
 
+    if (form.playerMobileNumber.length !== 10) {
+      setError("❌ Enter a valid 10-digit mobile number");
+      return;
+    }
+
+    setLoading(true);
+
     try {
-      const res = await  fetch('https://bgmibackend.onrender.com/Matchedjoin', {
+      const res = await fetch("https://bgmibackend.onrender.com/joinmatches", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
@@ -74,14 +83,17 @@ const Page = () => {
       const data = await res.json();
 
       if (!res.ok) {
-        setError(data.error || "Something went wrong");
+        setError(data.error || "❌ Something went wrong");
         return;
       }
 
-      alert("Form submitted successfully!");
+      setSuccess("✅ Joined successfully! 🎉");
+      handleReset();
     } catch (err) {
       console.error("Fetch error:", err);
-      setError("Failed to connect to server");
+      setError("❌ Failed to connect to server");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -107,96 +119,39 @@ const Page = () => {
           />
         </div>
 
-        <Input
-          label="First Player Name"
-          name="firstPlayer"
-          value={form.firstPlayer}
-          onChange={handleChange}
-        />
-        <Input
-          label="Second Player Name"
-          name="secondPlayer"
-          value={form.secondPlayer}
-          onChange={handleChange}
-        />
-        <Input
-          label="Third Player Name"
-          name="thirdPlayer"
-          value={form.thirdPlayer}
-          onChange={handleChange}
-        />
-        <Input
-          label="Forth Player Name"
-          name="forthPlayer"
-          value={form.forthPlayer}
-          onChange={handleChange}
-        />
-
-        <Input
-          label="Email"
-          name="playerEmail"
-          type="email"
-          value={form.playerEmail}
-          onChange={handleChange}
-        />
-
-        <Input
-          label="Password"
-          name="playerPassword"
-          type="password"
-          value={form.playerPassword}
-          onChange={handleChange}
-        />
-        <Input
-          label="Repeat Password"
-          name="playerConfirmPassword"
-          type="password"
-          value={form.playerConfirmPassword}
-          onChange={handleChange}
-        />
-
-        <Input
-          label="Phone Number"
-          name="playerMobileNumber"
-          value={form.playerMobileNumber}
-          onChange={handleChange}
-          inputMode="numeric"
-          pattern="[0-9]*"
-        />
+        <Input label="First Player Name" name="firstPlayer" value={form.firstPlayer} onChange={handleChange} />
+        <Input label="Second Player Name" name="secondPlayer" value={form.secondPlayer} onChange={handleChange} />
+        <Input label="Third Player Name" name="thirdPlayer" value={form.thirdPlayer} onChange={handleChange} />
+        <Input label="Fourth Player Name" name="fourthPlayer" value={form.fourthPlayer} onChange={handleChange} />
+        <Input label="Email" name="playerEmail" type="email" value={form.playerEmail} onChange={handleChange} />
+        <Input label="Password" name="playerPassword" type="password" value={form.playerPassword} onChange={handleChange} />
+        <Input label="Repeat Password" name="playerConfirmPassword" type="password" value={form.playerConfirmPassword} onChange={handleChange} />
+        <Input label="Phone Number" name="playerMobileNumber" value={form.playerMobileNumber} onChange={handleChange} inputMode="numeric" pattern="[0-9]*" />
 
         <div className="flex items-start mb-5">
           <div className="flex items-center h-5">
-            <input
-              id="terms"
-              type="checkbox"
-              required
-              className="w-4 h-4 border border-gray-300 rounded-sm focus:ring-2 focus:ring-blue-500"
-            />
+            <input id="terms" type="checkbox" required className="w-4 h-4 border border-gray-300 rounded-sm focus:ring-2 focus:ring-blue-500" />
           </div>
-          <label
-            htmlFor="terms"
-            className="ml-2 text-sm font-medium text-gray-700"
-          >
+          <label htmlFor="terms" className="ml-2 text-sm font-medium text-gray-700">
             I agree with the{" "}
-            <a
-              href="#"
-              className="text-blue-600 hover:underline"
-            >
+            <a href="#" className="text-blue-600 hover:underline">
               terms and conditions
             </a>
           </label>
         </div>
 
-        {error && (
-          <div className="text-red-500 mb-3 text-sm font-medium">{error}</div>
-        )}
+        {error && <div className="text-red-500 mb-3 text-sm font-medium">{error}</div>}
+        {success && <div className="text-green-600 mb-3 text-sm font-medium">{success}</div>}
 
         <div className="flex flex-col sm:flex-row justify-center gap-3">
           <button
             type="submit"
-            className="w-full sm:w-auto text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5"
+            disabled={loading}
+            className={`w-full sm:w-auto text-white ${
+              loading ? "bg-blue-400" : "bg-blue-700 hover:bg-blue-800"
+            } focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5`}
           >
-            Submit
+            {loading ? "Submitting..." : "Submit"}
           </button>
           <button
             type="reset"
@@ -212,10 +167,7 @@ const Page = () => {
 
 const Input = ({ label, name, type = "text", value, onChange, ...rest }) => (
   <div className="mb-4">
-    <label
-      htmlFor={name}
-      className="block mb-2 text-sm font-medium text-gray-700"
-    >
+    <label htmlFor={name} className="block mb-2 text-sm font-medium text-gray-700">
       {label}
     </label>
     <input
