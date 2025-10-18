@@ -28,59 +28,77 @@ const Page = () => {
          }, []);
   return (
     <>
-      <div className=' -ml-[71px] flex flex-col items-center  min-h-screen py-22 text-black '>
-      {/* This div represents the content area that would be passed as 'children' */}
-      <div className="  sm:mx-68">
-        <h1 className='-mt-4 text-[16px] sm:text-2xl  md:text-3xl lg:text-4xl font-bold text-black-500 underline mb-8 text-center'>
-          UPCOMING SCRIMS
-        </h1>
+     <div className=" -ml-[71px] flex flex-col items-center min-h-screen py-8 lg:py-22  text-black ">
+        {/* This div represents the content area that would be passed as 'children' */}
+        <div className="  sm:mx-68">
+          <h1 className="-mt-4 ml-[70px] text-[16px] sm:text-2xl  md:text-3xl lg:text-4xl font-bold text-white-500 underline mb-8 text-center">
+             SCRIMS
+          </h1>
 
-        <div className=' w-[56vw] mr-[6px]'>
-          {loading ? (
-            <p className="text-black text-center">Loading tournaments...</p>
-          ) : error ? (
-            <p className="text-red-500 text-center">{error}</p>
-          ) : (
-            <div className="container flex flex-col  gap-6">
-              {upcomingScrim.map((tournament) => (
-                <div
-                  key={tournament.tournamentId}
-                  className=" p-6 bg-white shadow-xl/30 rounded-2xl border border-black flex flex-col sm:flex-row justify-between items-start sm:items-center  gap-4"
-                >
-                  <div className="flex flex-col items-center sm:items-start sm:w-auto">
-                    {/* The Link component from a library like react-router-dom or Next.js would be used here. 
+          <div className=" mx-18 lg:mx-0 -mt-[22px] w-[96vw] lg:w-[60vw] mr-[6px]">
+            {loading ? (
+              <p className="text-black text-center">Loading tournaments...</p>
+            ) : error ? (
+              <p className="text-red-500 text-center">{error}</p>
+            ) : (
+              <div className="container flex flex-col  gap-2">
+                {upcomingScrim.map((tournament) => (
+                  <div
+                    key={tournament.tournamentId}
+                    className=" p-6 w-[100%] bg-white shadow-xl/30 rounded-2xl border border-black hover:border-cyan-400 flex flex-col sm:flex-row justify-between items-start sm:items-center  gap-4"
+                  >
+                    <div className=" w-[100%] flex flex-col items-center sm:items-start ">
+                      {/* The Link component from a library like react-router-dom or Next.js would be used here. 
                         We use a simple anchor tag for demonstration. */}
-                      <div className="text-black text-xl sm:text-2xl font-bold mb-2 hover:underline hover:text-cyan-400">
-                        {tournament.name.toUpperCase()}
-                      </div>
-                    <div className="  flex flex-col sm:flex-row gap-4 sm:gap-10 text-black mt-4 sm:mt-0  sm:w-auto text-center sm:text-left">
-                      <div>
-                        <h1 className="text-sm font-semibold">START DATE :</h1>
-                        <span className="text-black text-sm">{tournament.startdate}</span>
-                      </div>
-                      <div>
-                        <h1 className="text-sm font-semibold">END DATE :</h1>
-                        <span className="text-black text-sm">{tournament.enddate}</span>
-                      </div>
-                      <div>
-                        <h1 className="text-sm font-semibold">TIME :</h1>
-                        <span className="text-black text-sm">{tournament.time}</span>
-                      </div>
-                      <div>
-                        <h1 className="text-sm font-semibold">MATCH :</h1>
-                        <span className="text-black text-sm">{tournament.match.toUpperCase()}</span>
+                      <a
+                        href={`/details/${tournament.tournamentId}`}
+                        className="text-center sm:text-left"
+                      >
+                        <div className="text-black text-xl sm:text-2xl font-bold mb-2 hover:underline hover:text-cyan-400">
+                          {tournament.name.toUpperCase()}
+                        </div>
+                      </a>
+                          {/* margin-left: -31px;
+    display: flex
+;
+    flex-direction: column;
+    align-items: center; */}
+
+                      <div className="w-[100%] ml-[-31px] lg:ml-[0] flex flex-col lg:flex-row items-center lg:justify-between gap-4  text-black mt-4 sm:mt-0  text-center sm:text-left">
+                        <div className="date flex gap-6">
+                          <div>
+                            <h1 className="text-sm font-semibold">
+                               DATE:
+                            </h1>
+                            <span className="text-black text-sm">
+                              {tournament.date}
+                            </span>
+                          </div>
+                          <div>
+                            <h1 className="text-sm font-semibold">TIME:</h1>
+                            <span className="text-black text-sm">
+                              {tournament.time}
+                            </span>
+                          </div>
+                        </div>
+                        {/* <div className="detail-btn -mt-4">
+                          <div className="">
+                            <a href={`/details/${tournament.tournamentId}`}>
+                              <button className=" sm:w-auto text-black hover:underline hover:text-cyan-400 font-semibold px-4 py-2 rounded-md transition-colors duration-200">
+                                DETAILS
+                              </button>
+                            </a>
+                          </div>
+                        </div> */}
                       </div>
                     </div>
                   </div>
-
-                 
-                </div>
-              ))}
-            </div>
-          )}
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
     </>
   );
 };
