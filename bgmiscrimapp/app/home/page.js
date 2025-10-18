@@ -1,8 +1,7 @@
+"use client";
 
-'use client';
-
-import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
+import React, { useEffect, useState } from "react";
+import Link from "next/link";
 
 const HomePage = () => {
   const [tournaments, setTournaments] = useState([]);
@@ -12,13 +11,13 @@ const HomePage = () => {
   useEffect(() => {
     const fetchTournaments = async () => {
       try {
-       const res = await  fetch('https://bgmibackend.onrender.com/tournament');
+        const res = await fetch("https://bgmibackend.onrender.com/tournament");
         if (!res.ok) throw new Error(`❌ Server responded with ${res.status}`);
         const data = await res.json();
         setTournaments(data);
       } catch (err) {
         console.error(err);
-        setError('❌ Failed to fetch tournaments.');
+        setError("❌ Failed to fetch tournaments.");
       } finally {
         setLoading(false);
       }
@@ -27,30 +26,32 @@ const HomePage = () => {
     fetchTournaments();
   }, []);
 
-  
 
   return (
     <>
-      <div className=' -ml-[71px] flex flex-col items-center min-h-screen py-22  text-black '>
+<div className=' ml-1 lg:-ml-[71px] flex flex-col items-center  min-h-screen py-5 lg:py-22 text-black '>
       {/* This div represents the content area that would be passed as 'children' */}
       <div className="  sm:mx-68">
-        <h1 className='-mt-4 text-[16px] sm:text-2xl  md:text-3xl lg:text-4xl font-bold text-white-500 underline mb-8 text-center'>
-          ONGOING TOURNAMENT
-        </h1>
+        <div className='turnament flex gap-10   mx-0 lg:mx-18 cursor-pointer'>
+        <div>
+             <h1 className="-mt-4 ml-[71px] text-center text-[16px] sm:text-2xl  md:text-3xl lg:text-4xl font-bold text-white-500 underline mb-8 ">
+            ONGOING TOURNAMENT
+          </h1>
+        </div>
+      </div> 
 
-        <div className=' w-[57vw] mr-[6px]'>
+        <div className=' -mt-8 w-[96vw] lg:w-[60vw] mr-[6px]'>
           {loading ? (
             <p className="text-black text-center">Loading tournaments...</p>
           ) : error ? (
             <p className="text-red-500 text-center">{error}</p>
           ) : (
-            <div className="container flex flex-col  gap-6">
+            <div className="container   mt-4 flex flex-col  gap-2">
               {tournaments.map((tournament) => (
                 <div
                   key={tournament.tournamentId}
-                  className=" p-6 bg-white shadow-xl/30 rounded-2xl border border-black flex flex-col sm:flex-row justify-between items-start sm:items-center  gap-4"
-                >
-                  <div className="flex flex-col items-center sm:items-start sm:w-auto">
+                className="  p-6 w-[100%] bg-white shadow-xl/30 rounded-2xl border border-black  hover:border-cyan-400 flex flex-col sm:flex-row justify-between items-start sm:items-center  gap-4">
+              <div className=" w-[100%] flex flex-col items-center sm:items-start ">
                     {/* The Link component from a library like react-router-dom or Next.js would be used here. 
                         We use a simple anchor tag for demonstration. */}
                     <a href={`/details/${tournament.tournamentId}`} className="text-center sm:text-left">
@@ -58,26 +59,36 @@ const HomePage = () => {
                         {tournament.name.toUpperCase()}
                       </div>
                     </a>
-
-                    <div className="  flex flex-col sm:flex-row gap-4 sm:gap-10 text-black mt-4 sm:mt-0  sm:w-auto text-center sm:text-left">
-                      <div>
-                        <h1 className="text-sm font-semibold">START DATE:</h1>
-                        <span className="text-black text-sm">{tournament.startdate}</span>
+                      <div className="w-[100%] ml-[-31px] lg:ml-[0] flex flex-col lg:flex-row items-center lg:justify-between gap-4  text-black mt-4 sm:mt-0  text-center sm:text-left">
+                        <div className="date flex gap-6">
+                          <div>
+                            <h1 className="text-sm font-semibold">
+                              START DATE:
+                            </h1>
+                            <span className="text-black text-sm">
+                              {tournament.startdate}
+                            </span>
+                          </div>
+                          <div>
+                            <h1 className="text-sm font-semibold">END DATE:</h1>
+                            <span className="text-black text-sm">
+                              {tournament.enddate}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="detail-btn -mt-4">
+                          <div className="">
+                            <a href={`/details/${tournament.tournamentId}`}>
+                              <button className=" sm:w-auto text-black hover:underline hover:text-cyan-400 font-semibold px-4 py-2 rounded-md transition-colors duration-200">
+                                DETAILS
+                              </button>
+                            </a>
+                          </div>
+                        </div>
                       </div>
-                      <div>
-                        <h1 className="text-sm font-semibold">END DATE:</h1>
-                        <span className="text-black text-sm">{tournament.enddate}</span>
-                      </div>
-                    </div>
                   </div>
 
-                  <div className="flex sm:flex-col gap-4 sm:gap-2 justify-center sm:justify-start sm:w-auto mt-4 sm:mt-0">
-                    <a href={`/details/${tournament.tournamentId}`}>
-                      <button className=" sm:w-auto text-black hover:underline hover:text-cyan-400 font-semibold px-4 py-2 rounded-md transition-colors duration-200">
-                        DETAILS
-                      </button>
-                    </a>
-                  </div>
+                 
                 </div>
               ))}
             </div>
