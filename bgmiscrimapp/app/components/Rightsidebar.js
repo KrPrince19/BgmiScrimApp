@@ -52,25 +52,20 @@ const Rightsidebar = () => {
 
   return (
     <>
-      <div className='mvpPlayer'> 
+      <div className='mvpPlayer -mt-[35px] lg:mt-0 lg:mx-4 mx-1 bg-white'> 
         {/* ================= MVP PLAYER SECTION ================= */}
         {loading ? (
           <p className="text-white">Loading tournaments...</p>
         ) : (
-          <div className="right lg:fixed left-[79%] pt-8 lg:pt-7 w-[100%] lg:w-68 bg-white h-full sm:mr-0">
-             <div className="hidden lg:block mt-4">
-              <div className="Typing_msg w-full h-[150px]  flex items-center justify-center text-xl font-medium text-gray-700 p-4">
-                {displayed}
-                <span className="ml-1 h-6 w-[2px] bg-black animate-blink" />
-              </div>
-            </div>
+          <div className="right  -pt-1 lg:pt-7 w-[100%] lg:w-68 h-full sm:mr-0">
+             
             {mvpplayer.map((player, idx) => (
               
-              <div key={idx} className="card mt-8 lg:mt-10 flex lg:flex-col">
-                <img src={player.imgSrc} className="card-img-top h-45 lg:h-55 w-[50%] lg:w-full sm:ml-0 lg:rounded-t-2xl" alt="image" />
-                <div className="card-body bg-cyan-50 sm:ml-0 w-full text-gray-500 border lg:rounded-b-2xl">
+              <div key={idx} className="card mt-8 lg:-mt-1 flex lg:flex-col w-[50vw] lg:w-[42vw] ">
+                <img src={player.imgSrc} className="card-img-top h-45 lg:h-65   sm:ml-0 lg:rounded-t-2xl" alt="image" />
+                <div className="card-body bg-cyan-50 sm:ml-0  w-[60vw] lg:w-[42vw] text-gray-500 border lg:rounded-b-2xl">
                   <h1 className="text-2xl font-bold text-center bg-cyan-300 text-black">MVP</h1>
-                  <div className="kill flex-col flex lg:h-30">
+                  <div className="kill flex-col flex w-[48vw] lg:h-30">
                     <span className="clan font-bold text-[1.2rem] lg:p-1 lg:text-2xl mx-1">Team:-{player.teamname.toUpperCase()}</span>
                     <span className="player font-bold lg:text-2xl lg:p-1 mx-1">Name:-{player.name.toUpperCase()}</span>
                     <span className="kill font-bold ;g:text-2xl lg:p-1 mx-1">Kill:- {player.kill}</span>
@@ -78,12 +73,7 @@ const Rightsidebar = () => {
                 </div>
               </div>
             ))}
-             <div className="lg:hidden block">
-              <div className="Typing_msg w-full h-[100px]  flex items-center justify-center text-xl font-bold text-gray-700 p-4">
-                {displayed}
-                <span className="ml-1 h-6 w-[2px] bg-black animate-blink" />
-              </div>
-            </div>
+            
           </div>
         )}
       </div> 
