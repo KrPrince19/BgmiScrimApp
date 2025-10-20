@@ -51,8 +51,8 @@ const Page = () => {
   
   return (
     <>        
-     <div className='mt-1 lg:mt-16 min-h-screen lg:0 lg:mr-12  '>
-     <div className='lg:mt-16 min-h-screen -ml-4'>
+     <div className='mt-1 lg:mt-6 min-h-screen lg:0 lg:ml-10  '>
+     <div className='lg:mt-6 min-h-screen -ml-4'>
 
     <h1 className="text-center font-bold mt-2 border-b-2 border-b-blue-300 lg:hidden">Top 3 Players</h1>
    <div className="toperdata  sm:flex left-0 gap-2  sm:ml-3  h-[100%] sm:h-[74vh] rounded-2xl bg-gray-300">
@@ -73,7 +73,7 @@ const Page = () => {
 {loading ? (
         <p className="text-white">Loading tournaments...</p>
       ) : (
-    <div className=" rounded-t-lg   my-4 ">
+    <div className=" rounded-t-lg mx-2  my-4 ">
     <h1 className="text-center font-bold mt-2 bg-cyan-100 border-2 border-blue-300 lg:hidden">Ranks</h1>
         {playerrank.map((playerrankdata,idx) => (
     <div
