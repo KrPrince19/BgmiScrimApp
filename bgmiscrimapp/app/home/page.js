@@ -29,18 +29,18 @@ const HomePage = () => {
 
   return (
     <>
-<div className=' ml-1 lg:-ml-[71px] flex flex-col items-center  min-h-screen py-5 lg:py-22 text-black '>
+<div className=' ml-1 lg:-ml-[21px] flex flex-col bg-white items-center  min-h-screen mt-4 lg:mt-0  text-black '>
       {/* This div represents the content area that would be passed as 'children' */}
       <div className="  sm:mx-68">
         <div className='turnament flex gap-10   mx-0 lg:mx-18 cursor-pointer'>
         <div>
-             <h1 className="-mt-4 ml-[71px] text-center text-[16px] sm:text-2xl  md:text-3xl lg:text-4xl font-bold text-white-500 underline mb-8 ">
+             <h1 className="-mt-4 ml-[71px] text-center text-[16px] sm:text-2xl  md:text-3xl lg:text-2xl font-bold text-white-500 underline mb-8 ">
             ONGOING TOURNAMENT
           </h1>
         </div>
       </div> 
 
-        <div className=' -mt-8 w-[96vw] lg:w-[60vw] mr-[6px]'>
+        <div className=' -mt-8 w-[96vw] lg:w-[55vw] lg:ml-10'>
           {loading ? (
             <p className="text-black text-center">Loading tournaments...</p>
           ) : error ? (
