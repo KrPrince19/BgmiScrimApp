@@ -33,7 +33,7 @@ const Page = () => {
   return (
     <>
   
-     <div className=' ml-2 lg:-ml-[71px] flex flex-col items-center  min-h-screen py-5 lg:py-22 text-black '>
+     <div className=' ml-2 lg:-ml-[21px] flex flex-col items-center  min-h-screen py-5  text-black '>
       {/* This div represents the content area that would be passed as 'children' */}
       <div className="  sm:mx-68">
         <div className='turnament flex gap-10 mx-10 cursor-pointer'>
@@ -44,7 +44,7 @@ const Page = () => {
               selected === "two" ? "text-cyan-300 underline" : "text-black"
             }`}
           >
-            <Link href="/turnament">ONGOING TOURNAMENT</Link>
+            <Link href="/tournament">ONGOING TOURNAMENT</Link>
           </h1>
         </div>
         <div>
@@ -59,7 +59,7 @@ const Page = () => {
         </div>
       </div> 
 
-        <div className=' w-[96vw] lg:w-[60vw] mr-[6px]'>
+        <div className=' w-[96vw] lg:w-[55vw] lg:ml-10'>
           {loading ? (
             <p className="text-black text-center">Loading tournaments...</p>
           ) : error ? (
