@@ -1,7 +1,8 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from './components/Navbar';
-import Leftsidebar from './components/Leftsidebar';
+import Footer from './components/Footer';
+import Typing from './components/Typing';
 import Rightsidebar from './components/Rightsidebar';
 
 import {
@@ -66,13 +67,14 @@ export default function RootLayout({ children }) {
             <div className="">
               <div className="">
             <Navbar/>
-              <div className="lg:hidden mt-0"><Rightsidebar/></div>
+            <Typing/>
+              <div className="lg:hidden  bg-white"><Rightsidebar/></div>
               </div>
-            <div className="left-middle-right flex justify-around w-full text-black bg-white shadow-lg...">
-              <div className="mt-10  bg-yellow-200"><Leftsidebar/></div>
-              <div className=" lg:w-[60%] w-[100%]  h-full">{children}</div>
+            <div className="left-middle-right flex w-full text-black bg-white shadow-lg...">
+              <div className=" lg:w-[56%] w-[100%]   h-full">{children}</div>
               <div className="hidden  lg:block "><Rightsidebar/></div>
             </div>
+            <div className="footer"><Footer/></div>
             </div>          
           </ClerkLoaded>
         </body>
