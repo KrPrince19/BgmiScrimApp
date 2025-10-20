@@ -1,60 +1,71 @@
-'use client';
-import Link from 'next/link';
-import React, { useEffect, useState, useRef } from "react";
-import { Menu, X } from 'lucide-react';
+"use client";
+
+import Link from "next/link";
+import React, { useState, useEffect, useRef } from "react";
+import { Menu, X, Search } from "lucide-react";
 import {
   SignInButton,
   SignUpButton,
   SignedIn,
   SignedOut,
-} from '@clerk/nextjs';
-import { FaHome, FaYoutube, FaInstagram } from 'react-icons/fa';
-import { GoTrophy } from 'react-icons/go';
-import { PiRanking } from 'react-icons/pi';
-import { GiCrossedSwords } from 'react-icons/gi';
+  UserButton,
+} from "@clerk/nextjs";
 
-const Navbar = ({ admin = [] }) => {
-  const [tournaments, setTournaments] = useState([]);
+const Navbar = () => {
+  const [selected, setSelected] = useState("one");
+  const [menuOpen, setMenuOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredTournaments, setFilteredTournaments] = useState([]);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [selected, setSelected] = useState('one');
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [tournaments, setupComingTournaments] = useState([]);
 
+  const dropdownRef = useRef(null);
   const menuRef = useRef(null);
-  const searchRef = useRef(null);
 
-  // ✅ Fetch data from backend
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await fetch('https://bgmibackend.onrender.com/upcomingtournament');
-      const data = await res.json();
-      setTournaments(data);
-    };
-    fetchData();
-  }, []);
+  // 🧠 Dummy tournament data (replace with API if needed)
+ useEffect(() => {
+                const fetchPlayer = async () => {
+                  try {
+                    const res = await fetch('https://bgmibackend.onrender.com/upcomingtournament');
+                    if (!res.ok) throw new Error(`❌ Server responded with ${res.status}`);
+                    const data = await res.json();
+                   setupComingTournaments(data);
+                  } catch (err) {
+                    console.error(err);
+                    setError("❌ Failed to fetch player.");
+                  } finally {
+                    setLoading(false);
+                  }
+                };
+            
+                fetchPlayer();
+              }, []);
 
-  // ✅ Filter tournaments by search term
+  // 🪄 Handle search
   useEffect(() => {
     if (searchTerm.trim() === "") {
       setFilteredTournaments([]);
+      setShowDropdown(false);
     } else {
-      const filtered = tournaments.filter((t) =>
+      const results = tournaments.filter((t) =>
         t.name.toLowerCase().includes(searchTerm.toLowerCase())
       );
-      setFilteredTournaments(filtered);
+      setFilteredTournaments(results);
+      setShowDropdown(true);
     }
   }, [searchTerm, tournaments]);
 
-  // ✅ Close menu or search when clicked outside
+  // 🖱️ Close dropdown when clicked outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      // Close sidebar
-      if (menuRef.current && !menuRef.current.contains(event.target) && !event.target.closest('.menu-btn')) {
-        setMenuOpen(false);
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target)
+      ) {
+        setShowDropdown(false);
       }
-      // Close search
-      if (searchRef.current && !searchRef.current.contains(event.target)) {
-        setSearchTerm("");
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setMenuOpen(false);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -62,234 +73,179 @@ const Navbar = ({ admin = [] }) => {
   }, []);
 
   return (
-    <>
-      {/* ================= NAVBAR ================= */}
-      <div className="Navbar fixed w-full h-15 bg-white shadow-xl/35 border-b-2 border-cyan-200 z-50 text-black text-2xl px-4">
-        <div className="flex justify-between items-center">
-          {/* Left Logo */}
-          <div className="left flex w-[25%] mt-4 lg:mt-0 lg:mx-8 m-2">
-            <h1 className="text-2xl sm:text-4xl font-extrabold tracking-wide font-press-start">
-              <span className="text-red-400 drop-shadow-lg">frag</span>
-              <span className="text-cyan-400 drop-shadow-lg">Zone</span>
-            </h1>
-          </div>
+    <nav className="fixed top-0 left-0 w-full bg-white shadow-md z-50">
+      <div className="flex justify-between items-center px-4 md:px-10 py-3">
+        {/* Logo */}
+        <Link href="/" className="flex items-center">
+          <span className="text-2xl lg:text-3xl font-bold text-cyan-500">Fr</span>
+          <span className="text-2xl lg:text-3xl font-bold text-red-600">ag</span>
+          <span className="text-2xl lg:text-3xl font-bold text-cyan-500">Zo</span>
+          <span className="text-2xl lg:text-3xl font-bold text-red-600">ne</span>
+        </Link>
 
-          {/* Desktop Right Section */}
-          <div className="right sm:flex justify-around w-[64%] text-white" ref={searchRef}>
-            <input
-              className="pl-4 mr-38 mt-4 border hidden lg:block border-gray-600 rounded-xl w-[250px] placeholder-gray-50 placeholder:text-sm bg-gray-800"
-              type="text"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Search UpcomingTournaments..."
-            />
-            <div className="mt-2">
-              <div className='hidden lg:block'>
+        {/* Desktop Menu */}
+        <div className="hidden md:flex items-center space-x-6 font-semibold text-black">
+          <Link href="/" onClick={() => setSelected("one")}
+            className={` font-bold transition-colors ${
+              selected === "one" ? "text-cyan-300 underline" : "text-black"
+            }`}>Home</Link>
+          <Link href="/tournament" onClick={() => setSelected("two")}
+            className={` font-bold transition-colors ${
+              selected === "two" ? "text-cyan-300 underline" : "text-black"
+            }`}>Tournaments</Link>
+         <Link href="/ranking" onClick={() => setSelected("three")}
+            className={` font-bold transition-colors ${
+              selected === "three" ? "text-cyan-300 underline" : "text-black"
+            }`}>Ranking</Link>
+        <Link href="/scrim" onClick={() => setSelected("four")}
+            className={` font-bold transition-colors ${
+              selected === "four" ? "text-cyan-300 underline" : "text-black"
+            }`}>Scrims</Link>
 
-              <SignedOut>
-                <button className="relative inline-flex items-center justify-center p-0.5 mb-1 me-2 text-sm font-medium rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500">
-                  <span className="relative px-5 py-2.5 rounded-md bg-transparent">
-                    <SignInButton />
-                  </span>
-                </button>
-                <button className="relative inline-flex items-center justify-center p-0.5 mb-1 me-2 text-sm font-medium rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500">
-                  <span className="relative px-5 py-2.5 rounded-md bg-transparent">
-                    <SignUpButton />
-                  </span>
-                </button>
-              </SignedOut>
-              </div>
-              <SignedIn>
-                <div className="mx-10 mt-10">
-                  <div
-                    onClick={() => setSelected('one')}
-                    className={`hidden lg:block -mt-6 font-bold transition-colors ${
-                      selected === 'one' ? 'text-cyan-200 underline' : 'text-black'
-                    }`}
-                  >
-                    <Link href="/profile" className="hover:underline">
-                      Profile
-                    </Link>
-                  </div>
-                </div>
-              </SignedIn>
+          <div className="relative" ref={dropdownRef}>
+            <div className="flex items-center bg-gray-900 text-white rounded-xl px-3 py-2">
+              <input
+                type="text"
+                placeholder="Search Upcoming Tournaments..."
+                className="bg-transparent outline-none w-64 placeholder-gray-400"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                onFocus={() => searchTerm && setShowDropdown(true)}
+              />
+              <Search size={18} />
             </div>
-          </div>
 
-          {/* Hamburger (Mobile only) */}
-          <div className="lg:hidden flex items-center text-black menu-btn">
-            {menuOpen ? (
-              <X className="w-8 h-8 cursor-pointer" onClick={() => setMenuOpen(false)} />
-            ) : (
-              <Menu className="w-8 h-8 cursor-pointer" onClick={() => setMenuOpen(true)} />
+            {showDropdown && (
+              <div className="absolute mt-2 bg-white rounded-xl shadow-lg w-full max-h-60 overflow-y-auto border border-gray-300 z-40">
+                {filteredTournaments.length > 0 ? (
+                  filteredTournaments.map((tournament) => (
+                    <div
+                      key={tournament.id}
+                      className="px-4 py-3 hover:bg-cyan-100 cursor-pointer"
+                    >
+                      <p className="font-bold">{tournament.name}</p>
+                      <p className="text-sm text-gray-600">
+                        Starts {tournament.startdate} - End {tournament.enddate}
+                      </p>
+                      <p><Link href={`/joinmatch/${tournament.tournamentId}`}>Join</Link></p>
+                      <p><Link href={`/details/${tournament.tournamentId}`}>Detail</Link></p>
+                    </div>
+                  ))
+                ) : (
+                  <p className="px-4 py-3 text-gray-500">No tournaments found</p>
+                )}
+              </div>
             )}
           </div>
+
+          <SignedOut>
+            <SignInButton>
+              <button className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white px-4 py-2 rounded-lg">
+                Sign In
+              </button>
+            </SignInButton>
+            <SignUpButton>
+              <button className="bg-cyan-500 text-white px-4 py-2 rounded-lg">
+                Sign Up
+              </button>
+            </SignUpButton>
+          </SignedOut>
+          <SignedIn>
+          <Link href="/profile" onClick={() => setSelected("five")}
+            className={` font-bold transition-colors ${
+              selected === "five" ? "text-cyan-300 underline" : "text-black"
+            }`}>Profile</Link>
+          </SignedIn>
         </div>
 
-        {/* Search results under navbar (Desktop) */}
-        <div className="flex justify-center w-full" ref={searchRef}>
-          {searchTerm.trim() !== "" && (
-            <div className="absolute top-[100px] lg:top-16 mr-[75px] w-[60vw] z-40">
-              {filteredTournaments.length > 0 ? (
-                filteredTournaments.map((tournament) => (
-                  <div
-                    key={tournament.tournamentId}
-                    className="p-6 bg-cyan-200 shadow-xl/30 rounded-2xl border border-black flex flex-col sm:flex-row justify-between items-start sm:items-center mt-2 gap-4"
-                  >
-                    <div className="w-full flex flex-col items-center sm:items-start">
-                      <Link href={`/details/${tournament.tournamentId}`} onClick={() => setSearchTerm("")}>
-                        <div className="text-black text-xl sm:text-2xl font-bold mb-2 hover:underline hover:text-cyan-400">
-                          {tournament.name.toUpperCase()}
-                        </div>
-                      </Link>
-                      <div className="flex flex-col lg:flex-row items-center lg:justify-between gap-6 text-black text-center sm:text-left">
-                        <div className="flex gap-6">
-                          <div>
-                            <h1 className="text-sm font-semibold">START DATE:</h1>
-                            <span className="text-black text-sm">{tournament.startdate}</span>
-                          </div>
-                          <div>
-                            <h1 className="text-sm font-semibold">END DATE:</h1>
-                            <span className="text-black text-sm">{tournament.enddate}</span>
-                          </div>
-                        </div>
-                        <div className="flex gap-4">
-                          <Link href={`/joinmatch/${tournament.tournamentId}`}>
-                            <button className="text-black hover:underline hover:text-cyan-400 font-semibold px-4 py-2 rounded-md">
-                              JOIN
-                            </button>
-                          </Link>
-                          <Link href={`/details/${tournament.tournamentId}`}>
-                            <button className="text-black hover:underline hover:text-cyan-400 font-semibold px-4 py-2 rounded-md">
-                              DETAILS
-                            </button>
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))
-              ) : (
-                <p className="text-gray-500 text-center bg-cyan-200 shadow-xl/30 rounded-2xl border border-black w-full h-[100px] mt-4 flex items-center justify-center">
-                  No tournaments found 😢
-                </p>
-              )}
-            </div>
-          )}
+        {/* Mobile Menu Icon */}
+        <div className="md:hidden flex items-center text-cyan-300">
+          <button onClick={() => setMenuOpen(!menuOpen)}>
+            {menuOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
         </div>
       </div>
 
-    {/* ================= MOBILE SIDEBAR ================= */}
-{menuOpen && (
-  <div
-    ref={menuRef}
-    className="fixed inset-0 z-40 bg-white sm:w-2/3 w-4/5 p-6 overflow-y-auto"
-  >
-    <div className="flex justify-between items-center mb-4">
-      <h1 className="text-xl font-extrabold font-press-start">
-        <span className="text-red-400">frag</span>
-        <span className="text-cyan-400">Zone</span>
-      </h1>
-      <X className="w-6 h-6 text-black cursor-pointer" onClick={() => setMenuOpen(false)} />
-    </div>
+      {/* Mobile Dropdown Menu */}
+      {menuOpen && (
+        <div
+          ref={menuRef}
+          className="md:hidden bg-white shadow-lg py-4 px-6 space-y-3 font-semibold text-black"
+        >
+          <Link href="/" onClick={() => setSelected("one")}
+            className={`p-2 text-[13px] font-bold transition-colors ${
+              selected === "one" ? "text-cyan-300 underline" : "text-black"
+            }`}>Home</Link>
+          <Link href="/tournament" onClick={() => setSelected("two")}
+            className={`p-2 text-[13px] font-bold transition-colors ${
+              selected === "two" ? "text-cyan-300 underline" : "text-black"
+            }`}>Tournaments</Link>
+         <Link href="/ranking" onClick={() => setSelected("three")}
+            className={`p-2 text-[13px] font-bold transition-colors ${
+              selected === "three" ? "text-cyan-300 underline" : "text-black"
+            }`}>Ranking</Link>
+        <Link href="/scrim" onClick={() => setSelected("four")}
+            className={`p-2 text-[13px] font-bold transition-colors ${
+              selected === "four" ? "text-cyan-300 underline" : "text-black"
+            }`}>Scrims</Link>
 
-    {/* ✅ Auth Buttons / Profile for mobile */}
-   
+          <div className="relative mt-3" ref={dropdownRef}>
+            <div className="flex items-center bg-gray-900 text-white rounded-xl px-3 py-2">
+              <input
+                type="text"
+                placeholder="Search Tournaments..."
+                className="bg-transparent outline-none w-full placeholder-gray-400"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                onFocus={() => searchTerm && setShowDropdown(true)}
+              />
+              <Search size={18} />
+            </div>
 
-    {/* ✅ Mobile Search */}
-    <div ref={searchRef}>
-      <input
-        className="pl-4 mt-2 border border-gray-600 rounded-xl w-full placeholder:text-[12px] placeholder-gray-200 bg-gray-800 text-white"
-        type="text"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        placeholder="Search UpcomingTournaments..."
-      />
-
-      {/* ✅ Mobile search results */}
-      {searchTerm.trim() !== "" && (
-        <div className="mt-3 bg-white shadow rounded-lg p-2">
-          {filteredTournaments.length > 0 ? (
-            filteredTournaments.map((t) => (
-              <div
-                key={t.tournamentId}
-                onClick={() => setSearchTerm("")}
-                className="p-2 border-b last:border-none hover:bg-gray-100 cursor-pointer"
-              >
-                <h3 className="font-semibold">{t.name}</h3>
-                <p className="text-sm text-gray-500">{t.startdate} - {t.enddate}</p>
+            {showDropdown && (
+              <div className="absolute mt-2 bg-white rounded-xl shadow-lg w-full border border-gray-300 z-40">
+                {filteredTournaments.length > 0 ? (
+                  filteredTournaments.map((tournament) => (
+                    <div
+                      key={tournament.id}
+                      className="px-4 py-3 hover:bg-cyan-100 cursor-pointer"
+                    >
+                      <p className="font-bold">{tournament.name}</p>
+                      <p className="text-sm text-gray-600">
+                        Starts {tournament.start} - End {tournament.end}
+                      </p>
+                        <p><Link href={`/joinmatch/${tournament.tournamentId}`}>Join</Link></p>
+                      <p><Link href={`/details/${tournament.tournamentId}`}>Detail</Link></p>
+                    </div>
+                  ))
+                ) : (
+                  <p className="px-4 py-3 text-gray-500">No tournaments found</p>
+                )}
               </div>
-            ))
-          ) : (
-            <p className="text-gray-500 text-sm p-2">No tournaments found 😢</p>
-          )}
+            )}
+          </div>
+
+          <SignedOut>
+            <SignInButton>
+              <button className="w-full bg-gradient-to-r from-indigo-500 to-purple-500 text-white px-4 py-2 rounded-lg">
+                Sign In
+              </button>
+            </SignInButton>
+            <SignUpButton>
+              <button className="w-full bg-cyan-500 text-white px-4 py-2 rounded-lg">
+                Sign Up
+              </button>
+            </SignUpButton>
+          </SignedOut>
+          <SignedIn>
+            <Link href="/profile" onClick={() => setSelected("five")}
+            className={` font-bold transition-colors ${
+              selected === "five" ? "text-cyan-300 underline" : "text-black"
+            }`}>Profile</Link>
+          </SignedIn>
         </div>
       )}
-    </div>
-
-    {/* ✅ Sidebar Links */}
-    <div className="space-y-4 mt-4">
-       <div className="mb-4 mr-28">
-      <SignedOut>
-        <div className="flex  gap-2">
-          <button className=" inline-flex items-center justify-center h-[34px]  text-sm font-medium rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500">
-            <span className="w-[85px]   rounded-md bg-transparent">
-              <SignInButton />
-            </span>
-          </button>
-          <button className=" inline-flex items-center h-[34px] justify-center p-0.5 text-sm font-medium rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500">
-            <span className="w-[85px] rounded-md bg-transparent">
-              <SignUpButton />
-            </span>
-          </button>
-        </div>
-      </SignedOut>
-
-      <SignedIn>
-        <div
-          onClick={() => {
-            setSelected('profile');
-            setMenuOpen(false);
-          }}
-          className={`mt-2 font-bold text-center ${
-            selected === 'profile' ? 'text-cyan-300 underline' : 'text-black'
-          }`}
-        >
-          <Link href="/profile">Profile</Link>
-        </div>
-      </SignedIn>
-    </div>
-      {[
-        { icon: <FaHome />, label: 'HOME', path: '/home', id: 'one' },
-        { icon: <GoTrophy />, label: 'TOURNAMENTS', path: '/turnament', id: 'two' },
-        { icon: <PiRanking />, label: 'RANKING', path: '/ranking', id: 'three' },
-        { icon: <GiCrossedSwords />, label: 'SCRIMS', path: '/scrim', id: 'four' },
-      ].map((item) => (
-        <div key={item.id} className="flex items-center gap-3">
-          {item.icon}
-          <div
-            onClick={() => {
-              setSelected(item.id);
-              setMenuOpen(false);
-            }}
-            className={`font-bold ${selected === item.id ? 'text-cyan-300 underline' : 'text-black'}`}
-          >
-            <Link href={item.path}>{item.label}</Link>
-          </div>
-        </div>
-      ))}
-    </div>
-
-    {/* ✅ Social Links */}
-    <div className="mt-6 flex text-black font-bold items-center gap-3">
-      <span>Join us:</span>
-      <Link href="/"><FaYoutube /></Link>
-      <Link href="/"><FaInstagram /></Link>
-    </div>
-  </div>
-)}
-
-    </>
+    </nav>
   );
 };
 
