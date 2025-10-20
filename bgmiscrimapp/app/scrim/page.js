@@ -28,14 +28,14 @@ const Page = () => {
          }, []);
   return (
     <>
-     <div className=" -ml-[71px] flex flex-col items-center min-h-screen py-8 lg:py-22  text-black ">
+     <div className=" ml-2 lg:-ml-[21px] flex flex-col items-center min-h-screen py-4 lg:py-0  text-black ">
         {/* This div represents the content area that would be passed as 'children' */}
         <div className="  sm:mx-68">
-          <h1 className="-mt-4 ml-[70px] text-[16px] sm:text-2xl  md:text-3xl lg:text-4xl font-bold text-white-500 underline mb-8 text-center">
+          <h1 className="-mt-4 ml-[25px] lg:ml-[66px] text-[16px] sm:text-2xl  md:text-3xl lg:text-4xl font-bold text-white-500 underline mb-8 text-center">
              SCRIMS
           </h1>
 
-          <div className=" mx-18 lg:mx-0 -mt-[22px] w-[96vw] lg:w-[60vw] mr-[6px]">
+         <div className=' w-[96vw] -mt-[21px] lg:w-[55vw] lg:ml-10'>
             {loading ? (
               <p className="text-black text-center">Loading tournaments...</p>
             ) : error ? (
