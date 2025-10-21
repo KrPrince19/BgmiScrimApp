@@ -55,7 +55,7 @@ const Rightsidebar = () => {
       <div className='mvpPlayer -mt-[35px] lg:mt-0 lg:mx-4 mx-1 bg-white'> 
         {/* ================= MVP PLAYER SECTION ================= */}
         {loading ? (
-          <p className="text-white">Loading tournaments...</p>
+          <p className="text-black">Loading tournaments...</p>
         ) : (
           <div className="right  -pt-1 lg:pt-7 w-[100%] lg:w-68 h-full sm:mr-0">
              
