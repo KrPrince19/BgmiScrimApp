@@ -74,7 +74,7 @@ const Page = () => {
     setLoading(true);
 
     try {
-      const res = await fetch("https://bgmibackend.onrender.com/joinmatches", {
+      const res = await fetch("https://fragzonebackend-eggp-6qe83nwzc-krprince19s-projects.vercel.app/joinmatches", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
