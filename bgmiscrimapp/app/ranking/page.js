@@ -71,7 +71,7 @@ const Page = () => {
 
  
 {loading ? (
-        <p className="text-white">Loading tournaments...</p>
+        <p className="text-black">Loading tournaments...</p>
       ) : (
     <div className=" rounded-t-lg mx-2  my-4 ">
     <h1 className="text-center font-bold mt-2 bg-cyan-100 border-2 border-blue-300 lg:hidden">Ranks</h1>
