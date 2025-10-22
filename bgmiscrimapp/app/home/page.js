@@ -12,7 +12,7 @@ const HomePage = () => {
 useEffect(() => {
          const fetchPlayer = async () => {
            try {
-             const res = await  fetch('https://fragzonebackend-eggp-6qe83nwzc-krprince19s-projects.vercel.app/rank');
+             const res = await  fetch('https://fragzonebackend-eggp-6qe83nwzc-krprince19s-projects.vercel.app/tournamnet');
              if (!res.ok) throw new Error(`❌ Server responded with ${res.status}`);
              const data = await res.json();
             setPlayerrank(data);
