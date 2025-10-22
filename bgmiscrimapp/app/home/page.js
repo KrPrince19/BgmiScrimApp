@@ -8,25 +8,25 @@ const HomePage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchTournaments = async () => {
-      try {
-         const res = await  fetch('https://fragzonebackend-eggp-6qe83nwzc-krprince19s-projects.vercel.app/tournament');
-        if (!res.ok) throw new Error(`❌ Server responded with ${res.status}`);
-        const data = await res.json();
-        setTournaments(data);
-      } catch (err) {
-        console.error(err);
-        setError("❌ Failed to fetch tournaments.");
-      } finally {
-        setLoading(false);
-      }
-    };
 
-    fetchTournaments();
-  }, []);
-
-
+useEffect(() => {
+         const fetchPlayer = async () => {
+           try {
+             const res = await  fetch('https://fragzonebackend-eggp-6qe83nwzc-krprince19s-projects.vercel.app/rank');
+             if (!res.ok) throw new Error(`❌ Server responded with ${res.status}`);
+             const data = await res.json();
+            setPlayerrank(data);
+           } catch (err) {
+             console.error(err);
+             setError("❌ Failed to fetch player.");
+           } finally {
+             setLoading(false);
+           }
+         };
+     
+         fetchPlayer();
+       }, []);
+  
   return (
     <>
 <div className=' ml-1 lg:-ml-[21px] flex flex-col bg-white items-center  min-h-screen mt-4 lg:mt-0  text-black '>
