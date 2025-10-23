@@ -59,7 +59,7 @@ export default function UserDashboard({ userEmail, name }) {
   }
 
   return (
-    <div className="w-[90%] h-[100vh] flex items-start justify-center mx-4 mt-2 lg:mt-20 py-8">
+    <div className="w-[90%] h-[100vh] flex items-start justify-center mx-4 mt-2  py-8">
       <div className="bg-white text-black shadow-lg rounded-lg lg:w-[70vw] flex flex-col items-center">
         <UserButton />
         <p className="text-center text-black mb-4">
