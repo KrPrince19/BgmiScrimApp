@@ -27,23 +27,7 @@ useEffect(() => {
    }, []);
 
 
-useEffect(() => {
-         const fetchPlayer = async () => {
-           try {
-             const res = await  fetch('bgmibackend.vercel.app/tournament');
-             if (!res.ok) throw new Error(`❌ Server responded with ${res.status}`);
-             const data = await res.json();
-            setTournaments(data);
-           } catch (err) {
-             console.error(err);
-             setError("❌ Failed to fetch player.");
-           } finally {
-             setLoading(false);
-           }
-         };
-     
-         fetchPlayer();
-       }, []);
+
   
 
   return (
