@@ -15,7 +15,8 @@ const Page = () => {
          useEffect(() => {
                const fetchPlayer = async () => {
                  try {
-                   const res = await fetch('https://fragzonebackend-eggp-6qe83nwzc-krprince19s-projects.vercel.app/upcomingtournament');
+                   const res = await fetch('https://bgmibackend.onrender.com/upcomingtournament');
+
                    if (!res.ok) throw new Error(`❌ Server responded with ${res.status}`);
                    const data = await res.json();
                   setupComingTournaments(data);
@@ -33,10 +34,10 @@ const Page = () => {
   return (
     <>
   
-     <div className=' ml-2 lg:-ml-[21px] flex flex-col items-center  min-h-screen py-5  text-black '>
+     <div className=' ml-3 lg:-ml-[10px] flex flex-col items-center  min-h-screen py-5 lg:py-0 text-black '>
       {/* This div represents the content area that would be passed as 'children' */}
       <div className="  sm:mx-68">
-        <div className='turnament flex gap-10 mx-10 cursor-pointer'>
+        <div className='turnament flex gap-10 mx-18 cursor-pointer'>
         <div>
           <h1
             onClick={() => setSelected("two")}
