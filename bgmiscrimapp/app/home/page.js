@@ -25,11 +25,6 @@ useEffect(() => {
  
      fetchPlayer();
    }, []);
-
-
-
-  
-
   return (
     <div className="ml-1 lg:-ml-[21px] flex flex-col bg-white items-center min-h-screen mt-4 lg:mt-0 text-black">
       <div className="sm:mx-68">
